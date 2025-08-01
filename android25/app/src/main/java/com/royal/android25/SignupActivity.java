@@ -1,10 +1,12 @@
 package com.royal.android25;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText edtEmail;
     EditText edtPassword;
     Button btnSubmit;
+    TextView tvLoginLink;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,7 @@ public class SignupActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtSignupEmail);
         edtPassword = findViewById(R.id.edtSignupPassword);
         btnSubmit = findViewById(R.id.btnSignupSubmit);
+        tvLoginLink = findViewById(R.id.tvSignupLoginLink);
 
         btnSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,11 +48,44 @@ public class SignupActivity extends AppCompatActivity {
                 String email = edtEmail.getText().toString();
                 String password  = edtPassword.getText().toString();
 
-                Log.i("SignupActivity",firstName);
-                Log.i("SignupActivity",lastName);
-                Log.i("SignupActivity",email);
-                Log.i("SignupActivity",password);
+                boolean isError = false;
+
+                if(firstName.isEmpty())
+                {
+                    edtFirstName.setError("Please Enter FirstName");
+                    isError = true;
+                }
+
+                if(lastName.isEmpty())
+                {
+                    edtLastName.setError("Please Enter LastName");
+                    isError = true;
+                }
+
+                if(isError)
+                {
+
+                }
+                else
+                {
+                    Log.i("SignupActivity",firstName);
+                    Log.i("SignupActivity",lastName);
+                    Log.i("SignupActivity",email);
+                    Log.i("SignupActivity",password);
+
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.putExtra("email", email);
+                    intent.putExtra("password", password);
+                    startActivity(intent);
+                }
             }
         });
+        tvLoginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        } );
     }
 }
