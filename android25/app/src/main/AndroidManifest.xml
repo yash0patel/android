@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android25">
         <activity
-            android:name=".HomeActivity"
+            android:name=".GamePlayActivity"
             android:exported="false" />
-        <!-- Launcher Activity -->
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" /> <!-- Launcher Activity -->
         <activity
             android:name=".SignupActivity"
             android:exported="true">

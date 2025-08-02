@@ -27,19 +27,25 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="ScoreBoard"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:id="@+id/btnHomeScoreBoard"
+            />
 
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Start Game"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:id="@+id/btnHomeStartGame"
+            />
 
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Logout"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:id="@+id/btnHomeLogout"
+            />
 
     </LinearLayout>
 </LinearLayout>
