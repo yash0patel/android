@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvLoginTitle"
-        android:text="LOGIN"
+        android:text="Login"
         android:textSize="15pt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
@@ -22,9 +22,10 @@
         android:id="@+id/edtLoginEmail"
         android:layout_below="@id/tvLoginTitle"
         android:hint="Email"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="100dp"
+        android:inputType="textEmailAddress"
         />
 
     <EditText
@@ -32,19 +33,39 @@
         android:layout_height="wrap_content"
         android:id="@+id/edtLoginPassword"
         android:layout_below="@id/edtLoginEmail"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:hint="Password"
         android:layout_marginTop="20dp"
+        android:inputType="textPassword"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnLoginSubmit"
-        android:text="LOGIN"
+        android:text="Login"
         android:layout_below="@id/edtLoginPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLoginNewUser"
+        android:text="New User?"
+        android:layout_below="@id/edtLoginPassword"
+        android:layout_marginStart="30dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLoginForgotPassword"
+        android:text="ForgotPassword?"
+        android:layout_below="@id/edtLoginPassword"
+        android:layout_alignEnd="@id/edtLoginPassword"
+        />
+
 </RelativeLayout>

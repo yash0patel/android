@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +65,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 if(isError)
                 {
-
+                    Toast.makeText(getApplicationContext(), "Please Correct Error(S)", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
