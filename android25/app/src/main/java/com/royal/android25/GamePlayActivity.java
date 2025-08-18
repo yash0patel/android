@@ -18,8 +18,8 @@ import java.util.HashSet;
 public class GamePlayActivity extends AppCompatActivity {
 
     ImageButton imgBtn [] = new ImageButton[12];
-    EditText edtBetAmt;
     TextView tvBetAmt, tvWinningAmt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,15 @@ public class GamePlayActivity extends AppCompatActivity {
         imgBtn[10] = findViewById(R.id.btnGamePlay11);
         imgBtn[11] = findViewById(R.id.btnGamePlay12);
 
-        edtBetAmt = findViewById(R.id.edtGamePlayBetAmt);
+        tvBetAmt = findViewById(R.id.tvGameActivityBetAmount);
+        tvWinningAmt = findViewById(R.id.tvGameActivityWinningAmount);
 
         Intent intent = getIntent();
         int amount = intent.getIntExtra("amount",0);
-        int winingAmount = 0 ;
+        int winningAmount = 0 ;
+
+        tvBetAmt.setText(String.valueOf(amount));
+        tvWinningAmt.setText(String.valueOf(winningAmount));
 
         HashSet<Integer> btns = new HashSet<>();
 
@@ -71,9 +75,14 @@ public class GamePlayActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         im.setBackgroundResource(R.drawable.diamond);
-                        int x = Integer.parseInt(edtBetAmt.getText().toString());
+                        int x = Integer.parseInt(tvWinningAmt.getText().toString());
+                        if (x == 0)
+                        {
+                            x = Integer.parseInt(tvBetAmt.getText().toString());
+                        }
+
                         x = x * 2;
-                        edtBetAmt.setText("" + x);
+                        tvWinningAmt.setText(String.valueOf(x));
                         im.setEnabled(false);
                     }
                 }

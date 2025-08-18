@@ -12,22 +12,51 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
-        android:rowCount="1"
-        android:columnCount="2">
+        android:rowCount="2"
+        android:columnCount="2"
+        android:padding="10dp">
 
+        <!-- Label for Bet Amount -->
         <TextView
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:text="Bet Amount:"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_columnWeight="1" />
+
+        <!-- Label for Winning Amount -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Winning Amount:"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_columnWeight="1" />
+
+        <!-- Value for Bet Amount -->
+        <TextView
             android:id="@+id/tvGameActivityBetAmount"
-            android:layout_columnWeight="1" />
-
-        <TextView
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:id="@+id/tvGameActivityWinningAmount"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="18sp"
+            android:gravity="center"
             android:layout_columnWeight="1" />
 
+        <!-- Value for Winning Amount -->
+        <TextView
+            android:id="@+id/tvGameActivityWinningAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_columnWeight="1" />
     </GridLayout>
+
 
 
     <GridLayout
