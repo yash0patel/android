@@ -14,6 +14,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.royal.android25.model.ResponseModel;
+import com.royal.android25.model.UserModel;
+import com.royal.android25.service.SessionService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText edtEmail;
@@ -68,23 +78,55 @@ public class LoginActivity extends AppCompatActivity {
                 String email = edtEmail.getText().toString();
                 String password = edtPassword.getText().toString();
 
-                boolean isError  = false;
+                boolean isError = false;
 
-                if(email.isEmpty()){
+                if (email.isEmpty()) {
                     isError = true;
                     edtEmail.setError("Please Enter Email");
                 }
 
-                if(password.isEmpty()){
+                if (password.isEmpty()) {
                     isError = true;
                     edtPassword.setError("Please Enter Password");
                 }
 
-                if(isError){
+                if (isError) {
                     Toast.makeText(getApplicationContext(), "Please correct error(s)", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent1 = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent1);
+                } else {
+                    Retrofit retrofit =   new Retrofit.Builder()
+                            .baseUrl("https://diamondgamenode.onrender.com")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    SessionService sessionService =  retrofit.create(SessionService.class);
+
+                    UserModel userModel = new UserModel();
+                    userModel.setEmail(email);
+                    userModel.setPassword(password);
+
+                    Call<ResponseModel> call =  sessionService.loginApi(userModel);
+
+                    call.enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            if (response.code() == 200) {
+                                String firstname = response.body().getFirstname();
+                                int credit = response.body().getCredit();
+
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                intent.putExtra("firstname", firstname);
+                                intent.putExtra("credit", credit);
+                                startActivity(intent);
+                            } else {
+                                // login invalid
+                                Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        }
+                    });
                 }
             }
         });

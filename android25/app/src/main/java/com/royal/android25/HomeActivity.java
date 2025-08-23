@@ -35,6 +35,11 @@ public class HomeActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnHomeLogout);
         btnStartGame = findViewById(R.id.btnHomeStartGame);
 
+        Intent intent = getIntent();
+        String firstname = intent.getStringExtra("firstname");
+        int credit = intent.getIntExtra("credit", 0);
+
+
         btnStartGame.setOnClickListener(v -> {
             LayoutInflater inflater = LayoutInflater.from(HomeActivity.this);
             View dialogView = inflater.inflate(R.layout.input_amount, null);
@@ -51,9 +56,9 @@ public class HomeActivity extends AppCompatActivity {
                         }
                         try {
                             int amount = Integer.parseInt(text);
-                            Intent intent = new Intent(getApplicationContext(), GamePlayActivity.class);
-                            intent.putExtra("amount", amount);
-                            startActivity(intent);
+                            Intent intent1 = new Intent(getApplicationContext(), GamePlayActivity.class);
+                            intent1.putExtra("amount", amount);
+                            startActivity(intent1);
                         } catch (NumberFormatException e) {
                             Toast.makeText(HomeActivity.this, "Invalid amount entered", Toast.LENGTH_SHORT).show();
                         }

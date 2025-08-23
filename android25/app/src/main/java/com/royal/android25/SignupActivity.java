@@ -15,6 +15,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.royal.android25.model.ResponseModel;
+import com.royal.android25.model.UserModel;
+import com.royal.android25.service.SessionService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SignupActivity extends AppCompatActivity {
     EditText edtFirstName;
     EditText edtLastName;
@@ -73,11 +83,43 @@ public class SignupActivity extends AppCompatActivity {
                     Log.i("SignupActivity",lastName);
                     Log.i("SignupActivity",email);
                     Log.i("SignupActivity",password);
+                    //credit : 2000
 
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    intent.putExtra("email", email);
-                    intent.putExtra("password", password);
-                    startActivity(intent);
+                    Retrofit retrofit =   new Retrofit.Builder()
+                            .baseUrl("https://diamondgamenode.onrender.com")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    SessionService sessionService =  retrofit.create(SessionService.class);
+
+                    UserModel userModel = new UserModel();
+                    userModel.setFirstName(firstName);
+                    userModel.setEmail(email);
+                    userModel.setPassword(password);
+                    userModel.setLastName(lastName);
+                    userModel.setCredit(33000);
+
+                    Call<ResponseModel> call =  sessionService.signupApi(userModel);
+
+                    call.enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            Log.i("api","success");
+
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent.putExtra("email",email);
+                            intent.putExtra("password",password);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+                            Log.i("api","fail");
+                            Log.i("api",t.getMessage());
+
+                        }
+                    });
+
                 }
             }
         });
