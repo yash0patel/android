@@ -1,8 +1,10 @@
 package com.royal.android25;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
     ImageButton imgBtn [] = new ImageButton[12];
     TextView tvBetAmt, tvWinningAmt;
+    Button btnCashOut;
 
 
     @Override
@@ -47,6 +50,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
         tvBetAmt = findViewById(R.id.tvGameActivityBetAmount);
         tvWinningAmt = findViewById(R.id.tvGameActivityWinningAmount);
+        btnCashOut = findViewById(R.id.btnGamePlayCashout);
 
         Intent intent = getIntent();
         int amount = intent.getIntExtra("amount",0);
@@ -71,17 +75,16 @@ public class GamePlayActivity extends AppCompatActivity {
                     ImageButton im = findViewById(view.getId());
                     if (btns.contains(view.getId())) {
                         im.setBackgroundResource(R.drawable.blast);
+
+                        SharedPreferences sp = getSharedPreferences("diamondgame",MODE_PRIVATE);
+                        String _id = sp.getString("userId","-1");
+
                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                     } else {
                         im.setBackgroundResource(R.drawable.diamond);
                         int x = Integer.parseInt(tvWinningAmt.getText().toString());
-                        if (x == 0)
-                        {
-                            x = Integer.parseInt(tvBetAmt.getText().toString());
-                        }
-
-                        x = x * 2;
+                        x = x + amount;
                         tvWinningAmt.setText(String.valueOf(x));
                         im.setEnabled(false);
                     }

@@ -1,11 +1,13 @@
 package com.royal.android25;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class HomeActivity extends AppCompatActivity {
 
     Button btnStartGame, btnScoreBoard, btnLogout;
+    TextView tvFirstName,tvCredit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +38,20 @@ public class HomeActivity extends AppCompatActivity {
         btnScoreBoard = findViewById(R.id.btnHomeScoreBoard);
         btnLogout = findViewById(R.id.btnHomeLogout);
         btnStartGame = findViewById(R.id.btnHomeStartGame);
+        tvFirstName = findViewById(R.id.tvHomeFirstName);
+        tvCredit = findViewById(R.id.tvHomeCredit);
 
-        Intent intent = getIntent();
-        String firstname = intent.getStringExtra("firstname");
-        int credit = intent.getIntExtra("credit", 0);
+//        Intent intent = getIntent();
+//        String firstname = intent.getStringExtra("firstname");
+//        int credit = intent.getIntExtra("credit", 0);
 
+        //read data from shared pref
+        SharedPreferences sp = getSharedPreferences("diamondgame",MODE_PRIVATE);
+        String firstname = sp.getString("firstName","");
+        int credit = sp.getInt("credit",0);
+
+        tvFirstName.setText(firstname);
+        tvCredit.setText(String.valueOf(credit));
 
         btnStartGame.setOnClickListener(v -> {
             LayoutInflater inflater = LayoutInflater.from(HomeActivity.this);
@@ -65,6 +78,19 @@ public class HomeActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("Cancel", null)
                     .show();
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sp = getSharedPreferences("diamondgame",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.apply();
+
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }

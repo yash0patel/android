@@ -6,6 +6,7 @@ public class UserModel {
     private String email;
     private String password;
     private int credit;
+    private String _id;
 
     public String getFirstName() {
         return firstName;
@@ -45,5 +46,13 @@ public class UserModel {
 
     public void setCredit(int credit) {
         this.credit = credit;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
